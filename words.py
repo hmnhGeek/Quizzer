@@ -42,7 +42,7 @@ def add_data(profile, key, value):
 
     return write(d)
 
-def quiz():
+def quiz(num=None):
     d = get_contents()
     d = d["VOCABULARY"]
 
@@ -52,7 +52,12 @@ def quiz():
 
     d = {v: k for k, v in d.items()}
 
-    while len(done) != len(d):
+    if num:
+        N = num
+    else:
+        N = len(d)
+
+    while len(done) != N:
         key = random.choice(list(d.keys()))
 
         if key not in done:
@@ -61,7 +66,7 @@ def quiz():
             print(d[key])
 
             if user.upper() != d[key].upper():
-                wrong.append({"user": user, "answer": d[key]})
+                wrong.append({"question": key, "user": user, "answer": d[key]})
             else:
                 score += 1
 
